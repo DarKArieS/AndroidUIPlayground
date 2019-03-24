@@ -23,7 +23,11 @@ class ViewPagerFragStateAdapter(val fm: FragmentManager, val fragmentTagList:Lis
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return fragmentTagList[position]
+        return when(position){
+            0->"主頁"
+            1->"精華"
+            else->"unknown"
+        }
     }
 }
 

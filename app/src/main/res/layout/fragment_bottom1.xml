@@ -12,7 +12,7 @@
         <androidx.appcompat.widget.Toolbar
                 android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"
-                app:layout_scrollFlags="scroll|enterAlways">
+                app:layout_scrollFlags="scroll|enterAlways|snap">
         </androidx.appcompat.widget.Toolbar>
         <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
@@ -20,14 +20,7 @@
                 android:layout_height="wrap_content"
                 app:tabMode="scrollable" app:tabGravity="center"
                 app:layout_scrollFlags="enterAlways">
-            <com.google.android.material.tabs.TabItem
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="主頁"/>
-            <com.google.android.material.tabs.TabItem
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="精華"/>
+
         </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

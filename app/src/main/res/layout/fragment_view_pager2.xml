@@ -9,6 +9,6 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="viewPager2" android:background="@android:color/holo_blue_light"/>
+            android:text="viewPager2"/>
 
 </FrameLayout>
