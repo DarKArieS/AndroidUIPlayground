@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--checkableBehavior: set all item to be checkable, which will have special background after selected-->
+    <group
+            android:checkableBehavior="single">
+        <item android:id="@+id/left_drawer_item_nav_bottom1"
+              android:icon="@drawable/ic_settings_white_24dp"
+              android:title="前往bottom1"
+        />
+        <item android:id="@+id/left_drawer_item_nav_bottom2"
+              android:title="前往bottom2"
+        />
+        <item android:id="@+id/left_drawer_item_nav_bottom3"
+              android:title="前往bottom3"
+        />
+    </group>
+
+</menu>

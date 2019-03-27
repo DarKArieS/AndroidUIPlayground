@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+            android:id="@+id/toolbar_action_setting"
+            android:title="設定"
+            android:icon="@android:drawable/ic_menu_manage"
+    />
+
+    <item android:id="@+id/toolbar_action_edit"
+          android:icon="@drawable/ic_edit_white_24dp"
+          android:title="編輯"
+          app:showAsAction="ifRoom"
+          android:visible="true"/>
+
+    <item android:id="@+id/toolbar_action_search"
+          android:icon="@drawable/ic_search_white_24dp"
+          android:title="搜尋"
+          app:showAsAction="ifRoom"
+          android:visible="true"/>
+</menu>

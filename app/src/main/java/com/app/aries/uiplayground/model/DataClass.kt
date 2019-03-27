@@ -7,3 +7,8 @@ data class PostContent(
     var content:    String="",
     var picture:    String=""
 )
+
+data class bannerContent(
+    var id:         Int=-1,
+    var pic:        String = ""
+)

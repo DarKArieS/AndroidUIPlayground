@@ -10,9 +10,15 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent">
         <androidx.appcompat.widget.Toolbar
+                android:id="@+id/bottom1_toolbar"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"
-                app:layout_scrollFlags="scroll|enterAlways|snap">
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                app:title="Bottom1Page"
+                app:titleTextColor="@color/design_default_color_on_primary"
+                app:theme="@style/ToolbarTheme"
+                app:popupTheme="@style/ToolbarPopupTheme"
+        >
         </androidx.appcompat.widget.Toolbar>
         <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"

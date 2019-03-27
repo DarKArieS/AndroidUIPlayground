@@ -6,10 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import timber.log.Timber
 
 class ViewPager2Fragment : Fragment() {
     init{
-        println("ViewPager2Fragment created!")
+        Timber.tag("lifecycle").d("ViewPager2Fragment created!")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +28,7 @@ class ViewPager2Fragment : Fragment() {
     }
 
     override fun onDestroy() {
-        println("ViewPager2Fragment onDestroy!")
+        Timber.tag("lifecycle").d("ViewPager2Fragment onDestroy!")
         super.onDestroy()
     }
 

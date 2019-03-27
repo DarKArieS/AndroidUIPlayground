@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import timber.log.Timber
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -21,7 +22,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class Bottom3Fragment : Fragment() {
     init{
-        println("Bottom3Fragment created")
+        Timber.tag("lifecycle").d("Bottom3Fragment created")
     }
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -44,7 +45,7 @@ class Bottom3Fragment : Fragment() {
     }
 
     override fun onDestroy() {
-        println("Bottom3Fragment onDestroy!")
+        Timber.tag("lifecycle").d("Bottom3Fragment onDestroy!")
         super.onDestroy()
     }
 

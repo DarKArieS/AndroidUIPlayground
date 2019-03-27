@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.app.aries.uiplayground.ViewPager1Fragment
 import com.app.aries.uiplayground.ViewPager2Fragment
 
-class ViewPagerFragStateAdapter(val fm: FragmentManager, val fragmentTagList:List<String>)
+class ViewPagerFragStateAdapter(fm: FragmentManager, val fragmentTagList:List<String>)
     : FragmentStatePagerAdapter(fm) {
 
     override fun getCount(): Int {
@@ -31,7 +31,7 @@ class ViewPagerFragStateAdapter(val fm: FragmentManager, val fragmentTagList:Lis
     }
 }
 
-class ViewPagerFragAdapter(val fm: FragmentManager, val fragmentTagList:List<String>)
+class ViewPagerFragAdapter(fm: FragmentManager, val fragmentTagList:List<String>)
     : FragmentPagerAdapter(fm) {
 
     override fun getCount(): Int {

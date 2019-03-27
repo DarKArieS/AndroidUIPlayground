@@ -12,13 +12,14 @@ import com.app.aries.uiplayground.bottom1fragment.HomeRecyclerViewAdapter
 import com.app.aries.uiplayground.model.PostContent
 import com.app.aries.uiplayground.model.ViewPager1Model
 import kotlinx.android.synthetic.main.fragment_view_pager1.view.*
+import timber.log.Timber
 
 class ViewPager1Fragment : Fragment() {
     lateinit var rootView :View
     private val viewPager1Model = ViewPager1Model()
 
     init{
-        println("ViewPager1Fragment created!")
+        Timber.tag("lifecycle").d("ViewPager1Fragment created!")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +42,7 @@ class ViewPager1Fragment : Fragment() {
     }
 
     override fun onDestroy() {
-        println("ViewPager1Fragment onDestroy!")
+        Timber.tag("lifecycle").d("ViewPager1Fragment onDestroy!")
         super.onDestroy()
     }
 
@@ -56,7 +57,7 @@ class ViewPager1Fragment : Fragment() {
         rootView.homeRecyclerView.addOnScrollListener(
             object: RecyclerView.OnScrollListener(){
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                    println("newState: $newState")
+                    Timber.d("newState: $newState")
                     super.onScrollStateChanged(recyclerView, newState)
                 }
 
@@ -64,7 +65,7 @@ class ViewPager1Fragment : Fragment() {
                     val childCount  = rootView.homeRecyclerView.childCount
                     val lastVisibItem = rootView.homeRecyclerView.getChildAt(childCount-1)
                     val position = rootView.homeRecyclerView.getChildAdapterPosition(lastVisibItem)
-                    println("onScrolled: dx: $dx dy: $dy position: $position" )
+                    Timber.d("onScrolled: dx: $dx dy: $dy position: $position")
                     if(position == rootView.homeRecyclerView.adapter!!.itemCount - 1){
                         viewPager1Model.updateFakePostContentList(10)
                         rootView.homeRecyclerView.adapter!!.notifyDataSetChanged()
