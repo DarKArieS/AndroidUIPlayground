@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.app.aries.uiplayground.R
 import com.app.aries.uiplayground.model.PostContent
@@ -53,17 +54,22 @@ class HomeRecyclerViewAdapter (val context: Context, val itemList: List<PostCont
 
     inner class BannerContainerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         init{
-
+            setupAdapter()
         }
 
         private fun setupAdapter(){
-            var List = listOf(bannerContent(),bannerContent(),bannerContent(),bannerContent(),bannerContent())
+            val List = listOf(bannerContent(),bannerContent(),bannerContent(),bannerContent(),bannerContent())
             itemView.popBannerRecycylerView.adapter = BannerAdapter(context, List)
             itemView.popBannerRecycylerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+            val snapHelper = LinearSnapHelper()
+            snapHelper.attachToRecyclerView(itemView.popBannerRecycylerView)
+
+            itemView.popBannerRecycylerView.onFlingListener
         }
 
         fun bind(item: PostContent) {
-            setupAdapter()
+
         }
     }
 }

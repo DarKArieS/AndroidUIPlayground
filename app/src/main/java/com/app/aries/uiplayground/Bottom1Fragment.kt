@@ -3,12 +3,19 @@ package com.app.aries.uiplayground
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import androidx.annotation.UiThread
 import androidx.fragment.app.Fragment
 import com.app.aries.uiplayground.bottom1fragment.*
+import com.app.aries.uiplayground.navigationmanager.FragmentFactory
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_bottom1.view.*
 import timber.log.Timber
 
-class Bottom1Fragment : Fragment() {
+class Bottom1Fragment : Fragment(), SearchBottomSheetListDialogFragment.Listener {
+    override fun onTestBottomSheetClicked(position: Int) {
+        Timber.tag("TestBottomSheet").d("onTestBottomSheetClicked")
+    }
+
     lateinit var rootView :View
     private var mainActivity : MainActivity? = null
 
@@ -16,9 +23,9 @@ class Bottom1Fragment : Fragment() {
         Timber.tag("lifecycle").d("Bottom1Fragment created")
     }
 
-    companion object {
+    companion object:FragmentFactory {
         @JvmStatic
-        fun newInstance() = Bottom1Fragment().apply {
+        override fun newInstance() = Bottom1Fragment().apply {
         }
     }
 
@@ -43,6 +50,7 @@ class Bottom1Fragment : Fragment() {
         rootView = inflater.inflate(R.layout.fragment_bottom1, container, false)
         setupViewPager()
         setupToolBar()
+
         return rootView
     }
 
@@ -51,10 +59,18 @@ class Bottom1Fragment : Fragment() {
         super.onDestroy()
     }
 
+    @UiThread
     private fun setupViewPager(){
-        val childFragmentList = listOf("ViewPager1Fragment","ViewPager2Fragment")
+        val childFragmentList = listOf(
+            "ViewPager1Fragment",
+            "ViewPager2Fragment",
+            "ViewPager2Fragment",
+            "ViewPager2Fragment",
+            "ViewPager2Fragment",
+            "ViewPager2Fragment",
+            "ViewPager2Fragment")
+        rootView.viewPager.adapter = ViewPagerFragAdapter(this.childFragmentManager,childFragmentList)
 //        rootView.viewPager.adapter = ViewPagerFragStateAdapter(this.childFragmentManager,childFragmentList)
-        rootView.viewPager.adapter = ViewPagerFragStateAdapter(this.childFragmentManager,childFragmentList)
         rootView.tabLayout.setupWithViewPager(rootView.viewPager)
 
 //        rootView.viewPager.addOnPageChangeListener(object:ViewPager.OnPageChangeListener{
@@ -83,7 +99,7 @@ class Bottom1Fragment : Fragment() {
 
         // setup tool bar with SupportActionBar
         // need to override fun onCreateOptionsMenu, onOptionsItemSelected
-        if(mainActivity?.setToolBar(rootView.bottom1_toolbar)==true)
+        if(mainActivity?.setToolBarFromFragment(rootView.bottom1_toolbar)==true)
             this.setHasOptionsMenu(true)
     }
 
@@ -94,11 +110,51 @@ class Bottom1Fragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-                (R.id.toolbar_action_search)->{
-                    //click search
-                    Timber.d("click toolbar search")
+            (R.id.toolbar_action_setting)->{
+                //click setting
+                Timber.d("click toolbar setting")
+
+                //open setting frag
+
+            }
+            (R.id.toolbar_action_search)->{
+                //click search
+                Timber.d("click toolbar search")
+                SearchBottomSheetListDialogFragment.newInstance().show(this.childFragmentManager, "SearchBottomSheetDialog")
+            }
+            (R.id.toolbar_action_edit)->{
+                mainActivity?.hideBottomNavigation{
+                    val bottomSheetBehavior = BottomSheetBehavior.from(rootView.bottomSheet1)
+
+
+
+                    bottomSheetBehavior.getScrimColor(rootView.bottom1Coordinatorlayout,rootView.bottomSheet1)
+
+                    bottomSheetBehavior.getScrimOpacity(rootView.bottom1Coordinatorlayout,rootView.bottomSheet1)
+
+                    val a = bottomSheetBehavior.state
+                    Timber.tag("bottomSheet").d("original state = $a")
+
+                    bottomSheetBehavior.setBottomSheetCallback(object: BottomSheetBehavior.BottomSheetCallback(){
+                        override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+                        }
+
+                        override fun onStateChanged(bottomSheet: View, newState: Int) {
+                            Timber.tag("bottomSheet").d("state = $newState")
+                            if(bottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN)
+                                mainActivity?.showBottomNavigation()
+                        }
+                    })
+
+                    bottomSheetBehavior.setPeekHeight(400,true) //init: px
+                    if(bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED)
+                        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+
+                    Timber.tag("bottomSheet").d("after opening state = $a")
                 }
             }
+        }
         return super.onOptionsItemSelected(item)
     }
 }

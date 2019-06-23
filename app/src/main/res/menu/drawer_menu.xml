@@ -8,6 +8,7 @@
               android:title="前往bottom1"
         />
         <item android:id="@+id/left_drawer_item_nav_bottom2"
+              android:icon="@drawable/icon_egg"
               android:title="前往bottom2"
         />
         <item android:id="@+id/left_drawer_item_nav_bottom3"

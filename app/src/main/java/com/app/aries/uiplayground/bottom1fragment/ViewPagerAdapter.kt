@@ -7,6 +7,15 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.app.aries.uiplayground.ViewPager1Fragment
 import com.app.aries.uiplayground.ViewPager2Fragment
 
+class ViewPagerPageTitle{
+    companion object {
+        val pageTitle = listOf(
+            "主頁",
+            "測試頁"
+        )
+    }
+}
+
 class ViewPagerFragStateAdapter(fm: FragmentManager, val fragmentTagList:List<String>)
     : FragmentStatePagerAdapter(fm) {
 
@@ -17,16 +26,16 @@ class ViewPagerFragStateAdapter(fm: FragmentManager, val fragmentTagList:List<St
     override fun getItem(position: Int): Fragment {
         return when(fragmentTagList[position]){
             ("ViewPager1Fragment")-> ViewPager1Fragment.newInstance()
-            ("ViewPager2Fragment")-> ViewPager2Fragment.newInstance()
-            else->{throw Exception("ViewPagerFragStateAdapter getItem: No such kind of fragment!")}
+            else->ViewPager2Fragment.newInstance(position)
+//            ("ViewPager2Fragment")-> ViewPager2Fragment.newInstance()
+//            else->{throw Exception("ViewPagerFragStateAdapter getItem: No such kind of fragment!")}
         }
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when(position){
             0->"主頁"
-            1->"精華"
-            else->"unknown"
+            else->"測試頁 $position"
         }
     }
 }
@@ -41,12 +50,16 @@ class ViewPagerFragAdapter(fm: FragmentManager, val fragmentTagList:List<String>
     override fun getItem(position: Int): Fragment {
         return when(fragmentTagList[position]){
             ("ViewPager1Fragment")-> ViewPager1Fragment.newInstance()
-            ("ViewPager2Fragment")-> ViewPager2Fragment.newInstance()
-            else->{throw Exception("ViewPagerFragStateAdapter getItem: No such kind of fragment!")}
+            else->ViewPager2Fragment.newInstance(position)
+//            ("ViewPager2Fragment")-> ViewPager2Fragment.newInstance()
+//            else->{throw Exception("ViewPagerFragStateAdapter getItem: No such kind of fragment!")}
         }
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return fragmentTagList[position]
+        return when(position){
+            0->"主頁"
+            else->"測試頁 $position"
+        }
     }
 }

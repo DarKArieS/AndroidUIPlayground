@@ -2,12 +2,18 @@ package com.app.aries.uiplayground
 
 
 import android.app.Application
+import com.app.aries.uiplayground.notification.OneSignalNotificationReceivedHandler
+import com.onesignal.OneSignal
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
 import timber.log.Timber
 
 class CustomApplication : Application() {
+    init {
+        println("UIPlayground: application init!")
+    }
+
     companion object {
         private lateinit var myApplication : CustomApplication
         fun getInstance() = myApplication
@@ -16,7 +22,17 @@ class CustomApplication : Application() {
     override fun onCreate(){
         myApplication = this
 
+        // OneSignal Initialization
+        OneSignal.startInit(this)
+            .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+            .setNotificationReceivedHandler(OneSignalNotificationReceivedHandler())
+            .unsubscribeWhenNotificationsAreDisabled(true)
+            .init()
+
         if (BuildConfig.DEBUG) {
+            // Logging set to help debug issues, remove before releasing your app.
+            OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.WARN)
+
             // problem:  can't not track the method in the logger logs, always be "Timber$Tree.prepareLog  (Timber.java:532)"
             // solution: Set methodOffset to 5 in order to hide internal method calls
 //            Timber.plant(object: Timber.DebugTree(){
@@ -40,6 +56,10 @@ class CustomApplication : Application() {
         }
 
         super.onCreate()
+    }
+
+    override fun onTrimMemory(level: Int) {
+        super.onTrimMemory(level)
     }
 
 }

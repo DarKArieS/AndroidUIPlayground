@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.app.aries.uiplayground">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
             android:name=".CustomApplication"
             android:allowBackup="false"
@@ -10,6 +12,37 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity
+                android:name=".SettingsActivity"
+                android:label="@string/title_activity_settings"
+                android:parentActivityName=".MainActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.app.aries.uiplayground.MainActivity"/>
+        </activity>
+
+        <receiver
+                android:name=".MyReceiver"
+                android:enabled="true"
+                android:exported="true">
+        </receiver>
+
+        <activity
+                android:name=".tabbedActivity"
+                android:label="@string/title_activity_tabbed">
+        </activity>
+
+        <service
+                android:name=".service.MyIntentService"
+                android:exported="false">
+        </service>
+        <service
+                android:name=".service.MyService"
+                android:enabled="true"
+                android:exported="false"
+                android:persistent="true">
+        </service>
+
         <activity
                 android:name=".MainActivity"
                 android:label="@string/app_name">
