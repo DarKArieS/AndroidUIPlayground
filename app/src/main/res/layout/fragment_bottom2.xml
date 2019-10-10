@@ -50,11 +50,13 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
             >
+                <include android:layout_width="match_parent" android:layout_height="wrap_content"
+                         layout="@layout/mqtt_test_layout" app:layout_constraintStart_toStartOf="parent"
+                         android:layout_marginStart="16dp"/>
 
-                <!-- TODO: Update blank fragment layout -->
                 <include android:layout_width="match_parent" android:layout_height="wrap_content"
                          layout="@layout/seek_bar_anim_pratice" app:layout_constraintStart_toStartOf="parent"
-                         android:layout_marginLeft="16dp" android:layout_marginStart="16dp"/>
+                         android:layout_marginStart="16dp"/>
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="300dp">

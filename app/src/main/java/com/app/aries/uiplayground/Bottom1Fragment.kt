@@ -5,13 +5,15 @@ import android.os.Bundle
 import android.view.*
 import androidx.annotation.UiThread
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import com.app.aries.uiplayground.bottom1fragment.*
 import com.app.aries.uiplayground.navigationmanager.FragmentFactory
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_bottom1.view.*
 import timber.log.Timber
 
-class Bottom1Fragment : Fragment(), SearchBottomSheetListDialogFragment.Listener {
+class Bottom1Fragment : Fragment(), SearchBottomSheetListDialogFragment.Listener,
+    ViewPager.OnPageChangeListener {
     override fun onTestBottomSheetClicked(position: Int) {
         Timber.tag("TestBottomSheet").d("onTestBottomSheetClicked")
     }
@@ -71,7 +73,12 @@ class Bottom1Fragment : Fragment(), SearchBottomSheetListDialogFragment.Listener
             "ViewPager2Fragment")
         rootView.viewPager.adapter = ViewPagerFragAdapter(this.childFragmentManager,childFragmentList)
 //        rootView.viewPager.adapter = ViewPagerFragStateAdapter(this.childFragmentManager,childFragmentList)
+
+
+
         rootView.tabLayout.setupWithViewPager(rootView.viewPager)
+
+        rootView.viewPager.addOnPageChangeListener(this)
 
 //        rootView.viewPager.addOnPageChangeListener(object:ViewPager.OnPageChangeListener{
 //            override fun onPageScrollStateChanged(state: Int) {
@@ -156,5 +163,21 @@ class Bottom1Fragment : Fragment(), SearchBottomSheetListDialogFragment.Listener
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+    }
+
+    override fun onPageScrollStateChanged(state: Int) {
+
+    }
+
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+    }
+
+    override fun onPageSelected(position: Int) {
+        val p = position
     }
 }

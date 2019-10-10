@@ -3,7 +3,7 @@ package com.app.aries.uiplayground.model
 class ViewPager1Model{
     // id= -1: banner
     // id= -2: no more
-    var postContentList = mutableListOf(PostContent(id=-1))
+    var postContentList = mutableListOf<PostContent>()
 
     fun updateFakePostContentList(amount: Int): MutableList<PostContent> {
         for (i in 1..amount){

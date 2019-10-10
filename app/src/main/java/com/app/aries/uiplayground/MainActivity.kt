@@ -65,6 +65,7 @@ class MainActivity : BaseActivity() {
                 // should be a factory design pattern
                     return when(tag){
                         "bottom1Fragment"-> Bottom1Fragment.newInstance()
+//                        "bottom1Fragment"-> ViewPager1Fragment.newInstance()
                         "bottom2Fragment"-> Bottom2Fragment.newInstance()
                         "bottom3Fragment"-> Bottom3Fragment.newInstance()
                         else->null

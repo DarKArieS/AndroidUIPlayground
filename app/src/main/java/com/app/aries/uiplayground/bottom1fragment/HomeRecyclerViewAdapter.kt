@@ -59,6 +59,7 @@ class HomeRecyclerViewAdapter (val context: Context, val itemList: List<PostCont
 
         private fun setupAdapter(){
             val List = listOf(bannerContent(),bannerContent(),bannerContent(),bannerContent(),bannerContent())
+
             itemView.popBannerRecycylerView.adapter = BannerAdapter(context, List)
             itemView.popBannerRecycylerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 

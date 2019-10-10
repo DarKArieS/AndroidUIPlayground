@@ -1,7 +1,6 @@
 package com.app.aries.uiplayground
 
 
-import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,16 +11,16 @@ import timber.log.Timber
 
 class ViewPager2Fragment : Fragment() {
     private var mNumber = 2
-    lateinit var rootView:View
+    lateinit var rootView: View
 
-    init{
+    init {
         Timber.tag("lifecycle").d("ViewPagers NO.$mNumber Fragment created!")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            mNumber = it.getInt("NO",2)
+            mNumber = it.getInt("NO", 2)
         }
 
     }
@@ -41,12 +40,16 @@ class ViewPager2Fragment : Fragment() {
         super.onDestroy()
     }
 
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+    }
+
 
     companion object {
         @JvmStatic
         fun newInstance() = ViewPager2Fragment()
 
-        fun newInstance(number:Int) = ViewPager2Fragment().apply {
+        fun newInstance(number: Int) = ViewPager2Fragment().apply {
             arguments = Bundle().apply {
                 putInt("NO", number)
                 Timber.tag("lifecycle").d("Factory: ViewPagers NO.$number Fragment created!")

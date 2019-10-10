@@ -3,10 +3,11 @@ package com.app.aries.uiplayground.navigationmanager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 
-abstract class NavigationManager(private val fragmentManager: FragmentManager,
-                        private val fragmentContainer:Int,
-                        var currentFragmentTag:String)
-{
+abstract class NavigationManager(
+    private val fragmentManager: FragmentManager,
+    private val fragmentContainer:Int,
+    var currentFragmentTag:String
+){
     init{
         navigateTo(currentFragmentTag)
     }
@@ -33,6 +34,10 @@ abstract class NavigationManager(private val fragmentManager: FragmentManager,
         transaction.commit()
 
         currentFragmentTag = tag
+    }
+
+    fun forwardNavigation(tag:String){
+
     }
 
     private fun checkFragmentStatus(tag:String):FragmentStatus{

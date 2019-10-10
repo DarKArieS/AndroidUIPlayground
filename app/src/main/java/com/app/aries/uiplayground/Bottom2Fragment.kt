@@ -16,14 +16,19 @@ import kotlinx.android.synthetic.main.fragment_bottom2.view.*
 import timber.log.Timber
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.ComponentName
+import android.content.ServiceConnection
 import androidx.core.app.NotificationCompat
 import androidx.core.app.TaskStackBuilder
 import android.os.Build
+import android.os.IBinder
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.SeekBar
 import androidx.core.app.NotificationManagerCompat
+import com.app.aries.uiplayground.service.MyMQTTService
 import com.app.aries.uiplayground.ui.BalanceAnimator
+import kotlinx.android.synthetic.main.mqtt_test_layout.view.*
 import kotlinx.android.synthetic.main.seek_bar_anim_pratice.view.*
 
 
@@ -69,6 +74,8 @@ class Bottom2Fragment : Fragment() {
         rootView.serviceButton.setOnClickListener { clickServiceButton() }
         rootView.stopServiceButton.setOnClickListener { clickStopServiceButton() }
         rootView.sendNotificationButton.setOnClickListener { clickSendNotification() }
+        rootView.startMQTTServiceButton.setOnClickListener {  clickStartMQTTService()}
+        rootView.publishMQTTButton.setOnClickListener { clickMQTTPublish() }
 
         setupEditText()
         setupSeekBar()
@@ -261,6 +268,59 @@ class Bottom2Fragment : Fragment() {
 
         // mId allows you to update the notification later on.
         mNotificationManager!!.notify(1, mBuilder.build())
+    }
 
+
+    // ==================== MQTT Service playground ===============================
+
+    override fun onPause() {
+        unbindNotificationService()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        bindNotificationService()
+        super.onResume()
+    }
+
+    private var mService: MyMQTTService? = null
+    private var mBinder: MyMQTTService.ServiceBinder? = null
+    private var hasBounded = false
+
+    private val serviceConnection = object: ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            mBinder = service as MyMQTTService.ServiceBinder
+            mService = service.getService()
+            hasBounded = true
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            clearServiceMember()
+        }
+    }
+
+    private fun clickStartMQTTService(){
+        val intent = Intent(mainActivity, MyMQTTService::class.java)
+        mainActivity?.startService(intent)
+    }
+
+    private fun bindNotificationService(){
+        val intent = Intent(this.context, MyMQTTService::class.java)
+        this.context?.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+    }
+
+    private fun unbindNotificationService(){
+        if(mService!=null) this.context?.unbindService(serviceConnection)
+        clearServiceMember()
+    }
+
+    private fun clearServiceMember(){
+        mBinder = null
+        mService = null
+        hasBounded = false
+    }
+
+    private fun clickMQTTPublish(){
+        if(null!=mBinder) mBinder!!.getService().publish("Publish something from client!")
     }
 }
